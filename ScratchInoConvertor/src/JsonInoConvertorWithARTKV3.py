@@ -4,9 +4,25 @@
 from __future__ import unicode_literals
 
 import json
+import codecs
 
 # from fileinput import close
 import zipfile
+
+try:
+    unicode = unicode
+except NameError:
+    # 'unicode' is undefined, must be Python 3
+    str = str
+    unicode = str
+    bytes = bytes
+    basestring = (str,bytes)
+else:
+    # 'unicode' exists, must be Python 2
+    str = str
+    unicode = unicode
+    bytes = str
+    basestring = basestring
 
 
 class JsonInoConvertor(object):
@@ -464,7 +480,7 @@ class JsonInoConvertor(object):
         # print block
         if (not (block[1] in self.var) and (not (block[1] in localVar))):
             self.unknownVar.append(block[1])
-            print "UVarRead = " + ', '.join(self.unknownVar)
+            print("UVarRead = " + ', '.join(self.unknownVar))
             # self.var.append(block[1])
             # self.globalVarStr += "int " + block[1] + "=0;\n"
 
@@ -481,13 +497,12 @@ class JsonInoConvertor(object):
     def convertSpriteScripts(self, fileINName, fileOUTName):
 
         fileOUT = open(fileOUTName, "w")
-
         archive = zipfile.ZipFile(fileINName, 'r')
         json_data = archive.read('project.json')
-
+		
         # json_data=open(jsondata)
 
-        data = json.loads(json_data)
+        data = json.loads(json_data.decode('utf-8'))
         curs = None
         for kindern in range(len(data['children'])):
             lala = data['children'][kindern]
@@ -495,7 +510,7 @@ class JsonInoConvertor(object):
                 curs = kindern
         if curs is not None:
             for threadScript in data['children'][curs]['scripts']:
-                print threadScript[2]
+                print(threadScript[2])
                 self.convertThreadScript(threadScript[2], self.indentation, [])
             if (self.unknownVar):
                 mess = "Error : Variable "
@@ -511,14 +526,14 @@ class JsonInoConvertor(object):
             self.setupFunctionStr += "}\n"
             # self.loopFunctionStr += "ARTK_Yield();\n}\n}\n"
 
-            print "#include <ARTK.h>\n"
+            print("#include <ARTK.h>\n")
             if len(self.servohashlist) > 0:
-                print "#include <Servo.h>\n"
+                print("#include <Servo.h>\n")
                 for servohash in self.servohashlist:
-                    print "Servo myservo"+str(servohash["pin"])+";\n"
-            print self.globalVarStr\
+                    print("Servo myservo"+str(servohash["pin"])+";\n")
+            print(self.globalVarStr\
                 + self.loopFunctionStr\
-                + self.setupFunctionStr
+                + self.setupFunctionStr)
             # Write in file
             fileOUT.write("#include <ARTK.h>\n")
             if len(self.servohashlist) > 0:
@@ -568,7 +583,7 @@ class JsonInoConvertor(object):
                                 "expected block doForever or setVar:to")
                             raise e
                     else:
-                        print i
+                        print(i)
                         self.loopFunctionStr += i + "while(1){\n"
                         self.convertScript(afterGoBlock[1], i, localVar)
                         self.loopFunctionStr += i + self.indentation\
