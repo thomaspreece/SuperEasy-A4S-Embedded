@@ -1,5 +1,5 @@
 import JsonInoConvertorWithARTKV3 as JsonInoConvertor
-import sys, getopt
+import sys, getopt, os
 
 
 inputfile = ''
@@ -26,6 +26,13 @@ print('Output file is', outputfile)
 print('Arduino type is', arduinotype)
 
 
+if not os.path.exists(inputfile):
+	print("Invalid input file")
+	sys.exit()
+if not os.path.exists(inputfile):
+	print("Invalid output file")
+	sys.exit()
+	
 convertor = JsonInoConvertor.JsonInoConvertor(typeArduino=arduinotype)
 
 try:
