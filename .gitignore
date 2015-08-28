@@ -1,3 +1,6 @@
 *.pyc
 *.ino
 .config
+.bmx/
+*.bak
+Releases/
