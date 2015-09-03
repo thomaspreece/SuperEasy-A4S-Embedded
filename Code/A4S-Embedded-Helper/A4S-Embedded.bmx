@@ -567,7 +567,7 @@ Type A4SHelperFrameType Extends wxFrame
 
 				A4SHelperLog.AddText("===============Processing Scratch Code===============~n")
 				
-				Local Process:TProcess = New TProcess.Create("..\A4S-Embedded\build\exe.win32-3.4\CommandLineConverter.exe -i~q" + ScratchFile + "~q -o~q" + GetUserAppDir() + Slash + "A4S-Embedded" + Slash + "ArduinoCode.ino~q -t1", 1)
+				Local Process:TProcess = New TProcess.Create("Converter\CommandLineConverter.exe -i~q" + ScratchFile + "~q -o~q" + GetUserAppDir() + Slash + "A4S-Embedded" + Slash + "ArduinoCode.ino~q -t1", 1)
 				
 				Print
 				

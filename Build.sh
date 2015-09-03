@@ -1,4 +1,6 @@
 #!/bin/bash
+version="1.0.0.0"
+pythonBuildFolder="build/exe.win32-3.4"
 
 if [ $# -ne 1 ]; then
 	echo "Program handles building of SuperEasy-A4S"
@@ -21,7 +23,7 @@ else
 fi
 
 #Linux and Mac are not supported yet, exit with error
-if [ $platform == "Linux" ]; then
+if [ $platform == "Linux" ] || [ $platform == "MacOSX" ]; then
 	echo "Not supported yet"
 	exit 0
 fi
@@ -32,8 +34,6 @@ cd Code/A4S-Embedded/
 echo "Building A4S-Embedded"
 python setup.py build
 cd ../../
-
-exit 1
 
 mkdir -p Releases
 
@@ -49,8 +49,8 @@ if [ $1 -eq 1 ]; then
 	#Building For Windows
 	
 	##Check A4S-Helper Compiled##
-	if [ ! -f Code/A4S-Helper/A4S-$1.exe ]; then
-		echo "Please compile A4S-Helper (Cannot find A4S-$1.exe)"
+	if [ ! -f Code/A4S-Embedded-Helper/A4S-Embedded.exe ]; then
+		echo "Please compile A4S-Helper (Cannot find A4S-Embedded.exe)"
 		exit 1
 	fi
 	
@@ -73,31 +73,27 @@ if [ $1 -eq 1 ]; then
 	mkdir -p Releases/$releasename/examples
 	cp -ur Code/Scratch\ Examples/* Releases/$releasename/examples
 
-	##Copy A4S-Helper##
-	echo "Copying A4S-Helper"
-	cp -f Code/A4S-Helper/A4S-$1.exe Releases/$releasename/
-	cp -f Code/A4S-Helper/LanguageFile.txt Releases/$releasename/
-	cd Releases/$releasename/
-	mv A4S-Embedded.exe A4S-Embedded.exe		
-	cd ../../
+	##Copy A4S-Embedded-Helper##
+	echo "Copying A4S-Embedded-Helper"
+	cp -f Code/A4S-Embedded-Helper/A4S-Embedded.exe Releases/$releasename/
+	cp -f Code/A4S-Embedded-Helper/LanguageFile.txt Releases/$releasename/
 	
-	cp Code/A4S-Helper/{libgcc_s_dw2-1.dll,libgcc_s_sjlj-1.dll,libstdc++-6.dll} Releases/$releasename/
+	cp Code/A4S-Embedded-Helper/{libgcc_s_dw2-1.dll,libgcc_s_sjlj-1.dll,libstdc++-6.dll} Releases/$releasename/
 
 	mkdir -p Releases/$releasename/Resources
-	cp -ur Code/A4S-Helper/Resources/* Releases/$releasename/Resources
+	cp -ur Code/A4S-Embedded-Helper/Resources/* Releases/$releasename/Resources
 
-	##Copy A4S##
-	echo "Copying A4S"
-	cp -f Code/A4S/A4S.s2e Releases/$releasename/
-	cp -f Code/A4S/A4S.jar Releases/$releasename/
-	cp -u RxTx_Libraries/$bits/$platform/* Releases/$releasename/
-	
+	##Copy A4S-Embedded##
+	echo "Copying A4S-Embedded"
+	mkdir -p Releases/$releasename/Converter
+	cp -f Code/A4S-Embedded/$pythonBuildFolder/* Releases/$releasename/Converter
+		
 	##Copy Other bits##
 	cp -f Other/Help.txt Releases/$releasename/
 	cp -f Other/License.txt Releases/$releasename/
 	
 	##Echo Version##
-	echo "$releasename 1.4.0.0" > Releases/$releasename/Version.txt 
+	echo "$releasename $version" > Releases/$releasename/Version.txt 
 elif [ $1 -eq 2 ]; then 
 	#Building for Mac
 	
