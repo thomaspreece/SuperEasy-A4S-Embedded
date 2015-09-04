@@ -34,7 +34,21 @@ D) Plug in your Arduino, if any windows pop up you can close them off. Now conti
   </tag>
   
   <tag name="Tab2ExplainText">
-    <trans lang="en">Placeholder</trans>
+    <trans lang="en">Secondly we need to upload our Scratch Code to the Arduino. 
+	
+INSTRUCTIONS 
+
+A) Firstly you need to select your Scratch save file using the browse button below. You can get a Scratch save file by clicking 'File->Download to your Computer' if your using the online version of Scratch or 'File->Save as' if you are using the offline Scratch V2.0.
+
+B) Secondly select the COM port your Arduino is plugged into, there is often only 1 selectable port so that is most likely your Arduino. If you select the wrong COM port the program will fail to upload so a trial and error approach may work to find out which COM port your Arduino is.
+
+C) Next select the model of your Arduino board. It should say the model name on the actual board itself.
+
+D) Finally click upload and wait for the 'Status of Upload' to say finished.
+
+E) Your Arduino should now begin executing your code
+	
+TIP: If you want to see the actual Arduino code that is uploaded to the board click 'View->Toggle Code' from the menu above.</trans>
   </tag>  
 
   <tag name="Tab1">
@@ -143,9 +157,9 @@ D) Plug in your Arduino, if any windows pop up you can close them off. Now conti
     <trans lang="en">&amp;About</trans>
   </tag>  
   <tag name="MenuTAdvOpt">
-    <trans lang="en">&amp;Toggle Advanced Options</trans>
+    <trans lang="en">Toggle Advanced &amp;Options</trans>
   </tag>   
   <tag name="MenuViewCode">
-    <trans lang="en">&amp;View Code</trans>
+    <trans lang="en">Toggle &amp;Code</trans>
   </tag> 
 </locale>

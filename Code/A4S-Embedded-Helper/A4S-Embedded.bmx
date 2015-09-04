@@ -69,6 +69,7 @@ Global PortSelection:int = 0
 Global BoardSelection:int = 0
 Global ScratchFile:String = ""
 Global ScratchFileModified:int = 0
+Global CodeViewShown = False
 
 'Check if settings file available
 
@@ -100,8 +101,9 @@ EndIf
 Local SettingsFile:TStream 
 SettingsFile = ReadFile(GetUserAppDir() + Slash + "A4S-Embedded" + Slash + "Settings.txt")
 PortSelection = Int(ReadLine(SettingsFile))
-BoardSelection = int(ReadLine(SettingsFile) )
+BoardSelection = Int(ReadLine(SettingsFile) )
 ScratchFile = ReadLine(SettingsFile)
+CodeViewShown = Int(ReadLine(SettingsFile) )
 CloseFile(SettingsFile)
 
 Global BOARDCHOICES:String[] = ["1 - Arduino Uno", "2 - Arduino Leonardo", "3 - Arduino Esplora", "4 - Arduino Micro", "5 - Arduino Duemilanove (328)", "6 - Arduino Duemilanove (168)", "7 - Arduino Nano (328)", "8 - Arduino Nano (168)", "9 - Arduino Mini (328)", "10 - Arduino Mini (168)", "11 - Arduino Pro Mini (328)", "12 - Arduino Pro Mini (168)", "13 - Arduino Mega 2560/ADK", "14 - Arduino Mega 1280", "15 - Arduino Mega 8", "16 - Microduino Core+ (644)", "17 - Freematics OBD-II Adapter"]
@@ -152,7 +154,8 @@ Type A4SHelperFrameType Extends wxFrame
 	
 	Field CodeConverterTimer:wxTimer
 	
-	Field AdvancedOptionsShown = True   
+	Field AdvancedOptionsShown = False
+	
 
 	Method OnInit()	
 		CodeConverterTimer = New wxTimer.Create(Self, CCT)
@@ -181,17 +184,21 @@ Type A4SHelperFrameType Extends wxFrame
 		FileMenu.Append(wxID_CLOSE, GetLocaleText("MenuQuit") )
 		
 		Local ViewMenu:wxMenu = New wxMenu.Create()
-		ViewMenu.Append(TCOD, GetLocaleText("MenuViewCode"))
+		ViewMenu.Append(TCOD, GetLocaleText("MenuViewCode") )
 		ViewMenu.Append(TLOG, GetLocaleText("MenuDebugLog") )
-		ViewMenu.Append(TADO, GetLocaleText("MenuTAdvOpt") )
+		'ViewMenu.Append(TADO, GetLocaleText("MenuTAdvOpt") )
 		MenuBar.Append(FileMenu, GetLocaleText("MenuFile"))
-		MenuBar.Append(ViewMenu, GetLocaleText("MenuView"))
+		MenuBar.Append(ViewMenu, GetLocaleText("MenuView") )
 		Self.SetMenuBar(MenuBar)
-		
-
-		 
+				 
 		A4SHelperLog = A4SHelperLogType(New A4SHelperLogType.Create(Null , wxID_ANY, GetLocaleText("AppLogTitle"), - 1, - 1, 600, 450) )
-		A4SHelperCodeView = A4SHelperCodeViewType(New A4SHelperCodeViewType.Create(Null , wxID_ANY, GetLocaleText("AppCodeTitle"), - 1, - 1, 600, 450) )
+		A4SHelperCodeView = A4SHelperCodeViewType(New A4SHelperCodeViewType.Create(Null , wxID_ANY, GetLocaleText("AppCodeTitle"), - 1, - 1, 600, 490) )
+		
+		If CodeViewShown = True then
+			Self.A4SHelperCodeView.Show(1)
+		Else
+			Self.A4SHelperCodeView.Show(0)
+		EndIf
 
 		Local Icon:wxIcon = New wxIcon.CreateFromFile(PROGRAMICON, wxBITMAP_TYPE_ICO)
 		Self.SetIcon( Icon )
@@ -213,7 +220,7 @@ Type A4SHelperFrameType Extends wxFrame
 			Local S1_ExplainText1:wxTextCtrl = 	New wxTextCtrl.Create(S1_TextPanel , wxID_ANY , GetLocaleText("Tab1ExplainText_MAC") , - 1 , - 1 , - 1 , - 1 , wxTE_MULTILINE | wxTE_READONLY)
 		?
 		
-		S1_TextPanel.setbackgroundcolour(New wxColour.createcolour(240,240,240))
+		S1_TextPanel.SetBackgroundColour(New wxColour.CreateColour(240, 240, 240) )
 		S1_TextPanelvbox.Add(S1_ExplainText1 , 1 , wxEXPAND | wxALL , 4 )
 		S1_TextPanel.SetSizer(S1_TextPanelvbox)
 		
@@ -308,6 +315,10 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		Self.UpdatePorts()
 		Self.Center()
+		
+		Local x:Int, y:Int
+		Self.GetPosition(x, y)
+		Self.Move(x, y + 25)
 		Self.Show()		
 		
 		Connect(PCB1 , wxEVT_COMMAND_COMBOBOX_SELECTED , PortUpdatedFun)
@@ -322,7 +333,7 @@ Type A4SHelperFrameType Extends wxFrame
 		Connect(RPB , wxEVT_COMMAND_BUTTON_CLICKED , UpdatePortsFun)
 		Connect(BSFB, wxEVT_COMMAND_BUTTON_CLICKED, BrowseScratchFun)
 		Connect(TLOG , wxEVT_COMMAND_MENU_SELECTED, ShowLogFun)
-		Connect(TCOD , wxEVT_COMMAND_MENU_SELECTED, ShowCodeFun)
+		Connect(TCOD , wxEVT_COMMAND_MENU_SELECTED, ToggleCodeFun)
 		Connect(TADO , wxEVT_COMMAND_MENU_SELECTED, ToggleAdvancedOptionsFun)		
 		Connect(wxID_CLOSE, wxEVT_COMMAND_MENU_SELECTED, CloseFun)			
 		Connect(AID, wxEVT_COMMAND_MENU_SELECTED, AboutFun)	
@@ -445,7 +456,7 @@ Type A4SHelperFrameType Extends wxFrame
 	End Function
 	
 	Method ToggleAdvancedOptions()
-		If AdvancedOptionsShown=True Then
+		If AdvancedOptionsShown = True then
 			AdvancedOptionsShown = False
 		Else
 			AdvancedOptionsShown = True
@@ -490,8 +501,8 @@ Type A4SHelperFrameType Extends wxFrame
 		Info.seticon(Icon)
 		Info.SetDescription("This is an application that handles automatically all the complicated parts of using Arduino with Scratch")
 
-		Info.addDeveloper("Thomas Preece")
-		Info.addDocWriter("Thomas Preece")
+		Info.AddDeveloper("Thomas Preece")
+		Info.AddDocWriter("Thomas Preece")
 		Info.AddDocWriter("Simon Monk")
 
 		Info.setName("A4S")
@@ -500,11 +511,20 @@ Type A4SHelperFrameType Extends wxFrame
 		wxAboutBox(Info)
 	End Function
 	
+	Method ToggleCode()
+		If CodeViewShown = True then
+			CodeViewShown = False
+			Self.A4SHelperCodeView.Show(0)
+		Else
+			CodeViewShown = True
+			Self.A4SHelperCodeView.Show(1)
+		EndIf
+		UpdateSettings()
+	End Method	
 	
-	
-	Function ShowCodeFun(event:wxEvent)
+	Function ToggleCodeFun(event:wxEvent)
 		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
-		A4SHelperFrame.A4SHelperCodeView.Show(1)
+		A4SHelperFrame.ToggleCode()
 	End Function
 	
 	Function ShowLogFun(event:wxEvent)
@@ -848,7 +868,7 @@ Function GetPorts:TList()
 	
 	If CountList(COMPortsList) = 0 Then 
 		ListAddLast(COMPortsList,"")
-	EndIf 
+	EndIf
 	
 	Return COMPortsList
 End Function
@@ -860,6 +880,7 @@ Function UpdateSettings()
 	WriteLine(SettingsFile, PortSelection)
 	WriteLine(SettingsFile, BoardSelection)
 	WriteLine(SettingsFile, ScratchFile)
+	WriteLine(SettingsFile, CodeViewShown)
 	CloseFile(SettingsFile)
 End Function
 
