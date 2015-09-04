@@ -1,0 +1,151 @@
+<?xml version="1.0"?>
+<locale default="en">
+  <tag name="Tab1ExplainText_WIN">
+    <trans lang="en">Firstly we need to install the drivers of our Arduino board. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step.
+	
+INSTRUCTIONS 
+
+A) Plug one end of your USB cable into the Arduino and the other into a USB socket on your computer. The power light on the LED will light up and you may get a 'Found New Hardware' message from Windows. Ignore this message and cancel any attempts that Windows makes to try and install drivers automatically for you.
+
+B) We now load up the Device Manager. This is accessed in different ways depending on your version of Windows. In Windows Vista/7, you first have to open the Control Panel, then select View by: 'Large icons', and you should find 'Device Manager' in the list. In Windows XP, first open Control Panel then click 'Administrative Tools' then 'Computer Management' and then select 'Device Manager' from the list on the left.
+
+C) Under the section 'Other Devices' you should see an icon for 'unknown device' with a little yellow warning triangle next to it. This is your Arduino.
+
+D) Right-click on the device and select the top menu option (Update Driver Software...). You will then be prompted in Windows Vista/7 to either 'Search Automatically for updated driver software' or 'Browse my computer for driver software'. Or prompted in Windows XP to 'Install the software automatically' or 'Install from a list or specific location'. Select the option 'Browse my computer for driver software'/'Install from a list or specific location' and navigate to the drivers folder contained within this programs folder.
+
+E) Click 'Next' and you may get a security warning, if so, allow the software to be installed. Once the software has been installed, you will get a confirmation message.
+
+F) Now proceed to step 2.
+
+[Credit for the above text goes to: https://learn.adafruit.com/lesson-0-getting-started/installing-arduino-windows]</trans>
+  </tag>
+  <tag name="Tab1ExplainText_MAC">
+    <trans lang="en">Firstly we need to install the Arduino program and in some cases a driver. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step
+	
+INSTRUCTIONS
+
+A) Goto http://arduino.cc/en/Main/Software and download the latest stable version of the Arduino IDE, at time of writing that is version 1.0.5. 
+
+B) Now install the Arduino program into your Applications folder. 
+
+C) If you're using an older board ( Duemilanove, Diecimila, or any board with an FTDI driver chip that looks like the picture here: http://arduino.cc/en/Guide/MacOSX#toc3 ) you will need to install the drivers for the FTDI chip on the board. To get the drivers see http://www.ftdichip.com/Drivers/VCP.htm. 
+
+D) Plug in your Arduino, if any windows pop up you can close them off. Now continue to step 2.</trans>
+  </tag>
+  
+  <tag name="Tab2ExplainText">
+    <trans lang="en">Placeholder</trans>
+  </tag>  
+
+  <tag name="Tab1">
+    <trans lang="en">Step 1 - Arduino Driver</trans>
+  </tag>  
+  <tag name="Tab2">
+    <trans lang="en">Step 2 - Uploading</trans>
+  </tag>    
+  
+  <tag name="Port">
+    <trans lang="en">Port: </trans>
+  </tag>  
+  <tag name="Refresh">
+    <trans lang="en">Refresh</trans>
+  </tag>  
+  <tag name="Board">
+    <trans lang="en">Board: </trans>
+  </tag>  
+  <tag name="UploadStatus">
+    <trans lang="en">Status of Upload: </trans>
+  </tag>    
+  <tag name="ScratchFile">
+    <trans lang="en">Scratch File: </trans>
+  </tag>  
+  <tag name="Browse">
+    <trans lang="en">Browse</trans>
+  </tag>   
+
+
+  <tag name="ButtonUpload">
+    <trans lang="en">Start Upload</trans>
+  </tag>    
+  <tag name="ButtonFinished">
+    <trans lang="en">Finished Upload. Upload Again?</trans>
+  </tag>     
+  <tag name="ButtonStop">
+    <trans lang="en">Stop</trans>
+  </tag> 
+
+  <tag name="ErrorPortBoard">
+    <trans lang="en">Please Select a Port and Board</trans>
+  </tag>  
+  <tag name="ErrorClose">
+    <trans lang="en">Closing now may cause damage to your Arduino if you do not wait for it to finish. Do you still wish to close?</trans>
+  </tag>  
+  <tag name="ErrorArduinoUploader">
+    <trans lang="en">ArduinoUploader could not start.</trans>
+  </tag>  
+  <tag name="ErrorTitle">
+    <trans lang="en">Error</trans>
+  </tag>  
+  <tag name="ErrorGenArduinoCode">
+    <trans lang="en">Failed to generate Arduino code</trans>
+  </tag>  
+  <tag name="ErrorInstallIDE_MAC">
+    <trans lang="en">Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)</trans>
+  </tag>  
+  <tag name="ErrorFindScratchFiles">
+    <trans lang="en">Cannot find Scratch Files.</trans>
+  </tag>  
+  <tag name="ErrorCopyScratchFiles">
+    <trans lang="en">Cannot copy Scratch Files.</trans>
+  </tag>    
+  
+  <tag name="StatusNotStarted">
+    <trans lang="en">Not Started Yet</trans>
+  </tag>   
+  <tag name="StatusStoppedUser">
+    <trans lang="en">Stopped By User</trans>
+  </tag>   
+  <tag name="StatusError">
+    <trans lang="en">Error (see log)</trans>
+  </tag>   
+  <tag name="StatusFinished">
+    <trans lang="en">Finished</trans>
+  </tag>   
+  <tag name="StatusUploading">
+    <trans lang="en">Uploading...</trans>
+  </tag>   
+  <tag name="StatusCompiling">
+    <trans lang="en">Compiling...</trans>
+  </tag>     
+   
+  <tag name="AppTitle">
+    <trans lang="en">Arduino Scratch Server Starter</trans>
+  </tag>  
+  <tag name="AppLogTitle">
+    <trans lang="en">Debug Log</trans>
+  </tag>  
+  <tag name="AppCodeTitle">
+    <trans lang="en">Code View</trans>
+  </tag>    
+  <tag name="MenuQuit">
+    <trans lang="en">&amp;Quit</trans>
+  </tag>
+  <tag name="MenuDebugLog">
+    <trans lang="en">&amp;Debug Log</trans>
+  </tag>
+  <tag name="MenuFile">
+    <trans lang="en">&amp;File</trans>
+  </tag>
+  <tag name="MenuView">
+    <trans lang="en">&amp;View</trans>
+  </tag>
+  <tag name="MenuAbout">
+    <trans lang="en">&amp;About</trans>
+  </tag>  
+  <tag name="MenuTAdvOpt">
+    <trans lang="en">&amp;Toggle Advanced Options</trans>
+  </tag>   
+  <tag name="MenuViewCode">
+    <trans lang="en">&amp;View Code</trans>
+  </tag> 
+</locale>

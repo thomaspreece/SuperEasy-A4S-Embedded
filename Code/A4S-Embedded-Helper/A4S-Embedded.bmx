@@ -13,6 +13,7 @@ Import wx.wxAboutBox
 
 Import BaH.Serial
 Import BaH.Volumes
+Import BaH.Locale
 
 Import brl.linkedlist 
 Import pub.freeprocess
@@ -52,53 +53,6 @@ Const Slash:String="/"
 
 Const VERSION:String = "V1.0"
 
-Global EXPLAINTEXT1:String
-Global EXPLAINTEXT2:String
-Global EXPLAINTEXT3:String
-Global APPWINTITLE:String
-Global APPLOGTITLE:String
-Global APPCODEVIEWTITLE:String 
-Global TAB1:String
-Global TAB2:String
-Global TAB3:String
-Global LABEL1:String
-Global LABEL2:String
-Global LABEL3:String
-Global LABEL4:String
-Global LABEL5:String
-Global LABEL6:String
-Global LABEL7:String
-Global MENU1:String
-Global MENU2:String
-Global MENU3:String
-Global MENU4:String
-Global MENU5:String
-Global MENU6:String
-Global MENU7:String
-Global BUTTON1:String
-Global BUTTON2:String
-Global BUTTON3:String
-Global BUTTON4:String
-Global ERROR1:String
-Global ERROR2:String
-Global ERROR3:String
-Global ERROR4:String
-Global ERROR5:String
-Global ERROR6:String
-Global ERROR7:String
-Global ERROR8:String
-Global ERROR9:String
-Global ERROR10:String
-Global STATUS1:String
-Global STATUS2:String
-Global STATUS3:String
-Global STATUS4:String
-Global STATUS5:String
-Global STATUS6:String
-Global STATUS7:String
-Global STATUS8:String
-Global STATUS9:String
-
 ?Win32
 Global AppResources:String=""
 Global PROGRAMICON:String = "Resources"+Slash+"microcontroller.ico"
@@ -108,185 +62,8 @@ Global PROGRAMICON:String = "microcontroller.ico"
 ?
 ChangeDir(AppResources)
 
-If FileType("LanguageFile.txt")=1 Then 
-	ReadLanguage = ReadFile("LanguageFile.txt")
-	
-	ReadLine(ReadLanguage)
-	
-	EXPLAINTEXT1 = ReadLine(ReadLanguage)
-	EXPLAINTEXT2 = ReadLine(ReadLanguage)
-	EXPLAINTEXT3 = ReadLine(ReadLanguage)
-	
-	EXPLAINTEXT1 = Replace(EXPLAINTEXT1,"~~n","~n")
-	EXPLAINTEXT2 = Replace(EXPLAINTEXT2,"~~n","~n")
-	EXPLAINTEXT3 = Replace(EXPLAINTEXT3,"~~n","~n")			
-	
-	APPWINTITLE = ReadLine(ReadLanguage)
-	APPLOGTITLE = ReadLine(ReadLanguage)
-	APPCODEVIEWTITLE = ReadLine(ReadLanguage)
-	TAB1 = ReadLine(ReadLanguage)
-	TAB2 = ReadLine(ReadLanguage)
-	TAB3 = ReadLine(ReadLanguage)
-	LABEL1 = ReadLine(ReadLanguage)
-	LABEL2 = ReadLine(ReadLanguage)
-	LABEL3 = ReadLine(ReadLanguage)
-	LABEL4 = ReadLine(ReadLanguage)
-	LABEL5 = ReadLine(ReadLanguage)
-	LABEL6 = ReadLine(ReadLanguage)
-	LABEL7 = ReadLine(ReadLanguage)
-	MENU1 = ReadLine(ReadLanguage)
-	MENU2 = ReadLine(ReadLanguage)
-	MENU3 = ReadLine(ReadLanguage)
-	MENU4 = ReadLine(ReadLanguage)
-	MENU5 = ReadLine(ReadLanguage)
-	MENU6 = ReadLine(ReadLanguage)
-	MENU7 = ReadLine(ReadLanguage)
-	BUTTON1 = ReadLine(ReadLanguage)
-	BUTTON2 = ReadLine(ReadLanguage)
-	BUTTON3 = ReadLine(ReadLanguage)
-	BUTTON4 = ReadLine(ReadLanguage)
-	ERROR1 = ReadLine(ReadLanguage)
-	ERROR2 = ReadLine(ReadLanguage)
-	ERROR3 = ReadLine(ReadLanguage)
-	ERROR4 = ReadLine(ReadLanguage)
-	ERROR5 = ReadLine(ReadLanguage)
-	ERROR6 = ReadLine(ReadLanguage)
-	ERROR7 = ReadLine(ReadLanguage)
-	ERROR8 = ReadLine(ReadLanguage)	
-	ERROR9 = ReadLine(ReadLanguage)	
-	ERROR10 = ReadLine(ReadLanguage)	
-	STATUS1 = ReadLine(ReadLanguage)
-	STATUS2 = ReadLine(ReadLanguage)
-	STATUS3 = ReadLine(ReadLanguage)
-	STATUS4 = ReadLine(ReadLanguage)
-	STATUS5 = ReadLine(ReadLanguage)
-	STATUS6 = ReadLine(ReadLanguage)
-	STATUS7 = ReadLine(ReadLanguage)
-	STATUS8 = ReadLine(ReadLanguage)
-	STATUS9 = ReadLine(ReadLanguage)
-	
-	CloseFile(ReadLanguage)
-Else
-	?Win32
-	EXPLAINTEXT1 = "Firstly we need to install the drivers of our Arduino board. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step.~n~n"+..
-	"INSTRUCTIONS ~n~n"+..
-	"A) Plug one end of your USB cable into the Arduino and the other into a USB socket on your computer. The power light on the LED will light up and you may get a 'Found New Hardware' message from Windows. Ignore this message and cancel any attempts that Windows makes to try and install drivers automatically for you.~n~n"+..
-	"B) We now load up the Device Manager. This is accessed in different ways depending on your version of Windows. In Windows Vista/7, you first have to open the Control Panel, then select View by: 'Large icons', and you should find 'Device Manager' in the list. In Windows XP, first open Control Panel then click 'Administrative Tools' then 'Computer Management' and then select 'Device Manager' from the list on the left.~n~n"+..
-	"C) Under the section 'Other Devices' you should see an icon for 'unknown device' with a little yellow warning triangle next to it. This is your Arduino.~n~n"+..
-	"D) Right-click on the device and select the top menu option (Update Driver Software...). You will then be prompted in Windows Vista/7 to either 'Search Automatically for updated driver software' or 'Browse my computer for driver software'. Or prompted in Windows XP to 'Install the software automatically' or 'Install from a list or specific location'. Select the option 'Browse my computer for driver software'/'Install from a list or specific location' and navigate to the drivers folder contained within this programs folder.~n~n"+..
-	"E) Click 'Next' and you may get a security warning, if so, allow the software to be installed. Once the software has been installed, you will get a confirmation message.~n~n"+..
-	"F) Now proceed to step 2.~n~n"+..
-	"[Credit for the above text goes to: https://learn.adafruit.com/lesson-0-getting-started/installing-arduino-windows]"
-	
-	EXPLAINTEXT2 = ""
-	EXPLAINTEXT3 = ""
-	APPWINTITLE = "Arduino Scratch Server Starter"
-	APPLOGTITLE = "Log"
-	APPCODEVIEWTITLE = "Code"
-	
-	TAB1 = "Step 1 - Arduino Driver"
-	TAB2 = "Step 2 - Uploading"
-	TAB3 = "Step 3 - Start Server"
-	LABEL1 = "Port: "
-	LABEL2 = "Refresh"
-	LABEL3 = "Board: "
-	LABEL4 = "Status of Upload: "
-	LABEL5 = "Status of Helper App: "
-	LABEL6 = "Scratch File: "
-	LABEL7 = "Browse"
-	MENU1 = "&Quit"
-	MENU2 = "&Debug Log"
-	MENU3 = "&File"
-	MENU4 = "&View"
-	MENU5 = "&About"
-	MENU6 = "&Toggle Advanced Options"
-	MENU7 = "&View Code "
-	BUTTON1 = "Start Upload"
-	BUTTON2 = "Finished Upload. Upload Again?"
-	BUTTON3 = "Stop"
-	BUTTON4 = "Start Helper App"
-	
-	ERROR1 = "Please Select a Port and Board"
-	ERROR2 = "Closing now may cause damage to your Arduino if you do not wait for it to finish. Do you still wish to close?"
-	ERROR3 = "Please Select a Port"
-	ERROR4 = "Helper App could not start. Please make sure you have java installed on your system!"
-	ERROR5 = "ArduinoUploader could not start."
-	ERROR6 = "Error"
-	ERROR7 = "Failed to generate Arduino code"
-	ERROR8 = "Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)"
-	ERROR9 = "Cannot find Scratch Files."
-	ERROR10 = "Cannot copy Scratch Files."
-		
-	STATUS1 = "Not Started Yet"
-	STATUS2 = "Stopped"
-	STATUS3 = "Stopped By User"
-	STATUS4 = "Error (see log)"
-	STATUS5 = "Finished"
-	STATUS6 = "Uploading..."
-	STATUS7 = "Compiling..."
-	STATUS8 = "Started!"
-	STATUS9 = "Starting..."	
-
-	?MacOS
-	EXPLAINTEXT1 = "Firstly we need to install the Arduino program and in some cases a driver. If you have already done this before please proceed to step 2. Also if you are in a school this may have already been done for you, please confirm with your teacher as to whether you need to do this step.~n~n"+..
-	"INSTRUCTIONS ~n~n"+..
-	"A) Goto http://arduino.cc/en/Main/Software and download the latest stable version of the Arduino IDE, at time of writing that is version 1.0.5. ~n~n"+..
-	"B) Now install the Arduino program into your Applications folder. ~n~n"+..
-	"C) If you're using an older board ( Duemilanove, Diecimila, or any board with an FTDI driver chip that looks like the picture here: http://arduino.cc/en/Guide/MacOSX#toc3 ) you will need to install the drivers for the FTDI chip on the board. To get the drivers see http://www.ftdichip.com/Drivers/VCP.htm. ~n~n"+..
-	"D) Plug in your Arduino, if any windows pop up you can close them off. Now continue to step 2."
-	
-	EXPLAINTEXT2 = ""
-	
-	EXPLAINTEXT3 = ""
-	APPWINTITLE = "Arduino Scratch Server Starter"
-	APPLOGTITLE = "Log"
-	APPCODEVIEWTITLE = "Code"
-	
-	TAB1 = "Step 1 - Arduino Installation"
-	TAB2 = "Step 2 - Uploading"
-	TAB3 = "Step 3 - Start Server"
-	LABEL1 = "Port: "
-	LABEL2 = "Refresh"
-	LABEL3 = "Board: "
-	LABEL4 = "Status of Arduino IDE: "
-	LABEL5 = "Status of Helper App: "
-	LABEL6 = "Scratch File: "
-	LABEL7 = "Browse"	
-	MENU1 = "&Quit"
-	MENU2 = "&Debug Log"
-	MENU3 = "&File"
-	MENU4 = "&View"
-	MENU5 = "&About"
-	MENU6 = "&Toggle Advanced Options"
-	MENU7 = "&View Code "
-	BUTTON1 = "Start Arduino IDE"
-	BUTTON2 = "Start Arduino IDE Again?"
-	BUTTON3 = "Stop"
-	BUTTON4 = "Start Helper App"
-	
-	ERROR1 = "Please Select a Port and Board"
-	ERROR2 = "Closing now will close the Arduino IDE. Do you still wish to close?"
-	ERROR3 = "Please Select a Port"
-	ERROR4 = "Helper App could not start. Please make sure you have java installed on your system!"
-	ERROR5 = "ArduinoUploader could not start."
-	ERROR6 = "Error"
-	ERROR7 = "Failed to generate Arduino code"
-	ERROR8 = "Please install Arduino IDE into your applications folder (http://arduino.cc/en/Main/Software)"
-	ERROR9 = "Cannot find Scratch Files."
-	ERROR10 = "Cannot copy Scratch Files."
-		
-	STATUS1 = "Not Started Yet"
-	STATUS2 = "Stopped"
-	STATUS3 = "Stopped By User"
-	STATUS4 = "Error (see log)"
-	STATUS5 = "Finished"
-	STATUS6 = "Uploading..."
-	STATUS7 = "Compiling..."
-	STATUS8 = "Started!"
-	STATUS9 = "Starting..."	
-		
-	?
-EndIf 
+LoadLocaleFile("LanguageFile.blf")
+SetCurrentLocale(GetDefaultLocale() )
 
 Global PortSelection:int = 0
 Global BoardSelection:int = 0
@@ -340,7 +117,7 @@ Type A4SHelperAppType Extends wxApp
 	Method OnInit:Int()	
 		wxImage.AddHandler( New wxICOHandler)			
 
-		A4SHelperFrame = A4SHelperFrameType(New A4SHelperFrameType.Create(Null , wxID_ANY, APPWINTITLE, - 1, - 1, 600, 490) )
+		A4SHelperFrame = A4SHelperFrameType(New A4SHelperFrameType.Create(Null , wxID_ANY, GetLocaleText("AppTitle"), - 1, - 1, 600, 490) )
 		
 		Return True
 
@@ -386,12 +163,12 @@ Type A4SHelperFrameType Extends wxFrame
 		CreateSb2Status = CreateSb2Files()
 		
 		If CreateSb2Status = 1 Then 
-			MessageBox = New wxMessageDialog.Create(Null , ERROR9 , ERROR6 , wxOK | wxICON_ERROR)
+			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorFindScratchFiles") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 			MessageBox.ShowModal()
 			MessageBox.Free()	
 			Return
 		ElseIf CreateSb2Status = 2 Then
-			MessageBox = New wxMessageDialog.Create(Null , ERROR10 , ERROR6 , wxOK | wxICON_ERROR)
+			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorCopyScratchFiles") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 			MessageBox.ShowModal()
 			MessageBox.Free()	
 			Return
@@ -400,21 +177,21 @@ Type A4SHelperFrameType Extends wxFrame
 			
 		MenuBar = New wxMenuBar.Create()
 		Local FileMenu:wxMenu = New wxMenu.Create()
-		FileMenu.Append(AID, MENU5)
-		FileMenu.Append(wxID_CLOSE, MENU1)
+		FileMenu.Append(AID, GetLocaleText("MenuAbout"))
+		FileMenu.Append(wxID_CLOSE, GetLocaleText("MenuQuit") )
 		
 		Local ViewMenu:wxMenu = New wxMenu.Create()
-		ViewMenu.Append(TCOD, MENU7)
-		ViewMenu.Append(TLOG, MENU2)
-		ViewMenu.Append(TADO, MENU6)
-		MenuBar.Append(FileMenu, MENU3)
-		MenuBar.Append(ViewMenu, MENU4)
+		ViewMenu.Append(TCOD, GetLocaleText("MenuViewCode"))
+		ViewMenu.Append(TLOG, GetLocaleText("MenuDebugLog") )
+		ViewMenu.Append(TADO, GetLocaleText("MenuTAdvOpt") )
+		MenuBar.Append(FileMenu, GetLocaleText("MenuFile"))
+		MenuBar.Append(ViewMenu, GetLocaleText("MenuView"))
 		Self.SetMenuBar(MenuBar)
 		
 
 		 
-		A4SHelperLog = A4SHelperLogType(New A4SHelperLogType.Create(Null , wxID_ANY, APPLOGTITLE, - 1, - 1, 600, 450) )
-		A4SHelperCodeView = A4SHelperCodeViewType(New A4SHelperCodeViewType.Create(Null , wxID_ANY, APPCODEVIEWTITLE, - 1, - 1, 600, 450) )
+		A4SHelperLog = A4SHelperLogType(New A4SHelperLogType.Create(Null , wxID_ANY, GetLocaleText("AppLogTitle"), - 1, - 1, 600, 450) )
+		A4SHelperCodeView = A4SHelperCodeViewType(New A4SHelperCodeViewType.Create(Null , wxID_ANY, GetLocaleText("AppCodeTitle"), - 1, - 1, 600, 450) )
 
 		Local Icon:wxIcon = New wxIcon.CreateFromFile(PROGRAMICON, wxBITMAP_TYPE_ICO)
 		Self.SetIcon( Icon )
@@ -429,9 +206,12 @@ Type A4SHelperFrameType Extends wxFrame
 
 	
 		Local S1_TextPanel:wxPanel = New wxPanel.Create(DriverPanel , - 1)
-		Local S1_TextPanelvbox:wxBoxSizer = New wxBoxSizer.Create(wxVERTICAL)	
-		Local S1_ExplainText1:wxTextCtrl = 	New wxTextCtrl.Create(S1_TextPanel , wxID_ANY , EXPLAINTEXT1 , - 1 , - 1 , - 1 , - 1 , wxTE_MULTILINE | wxTE_READONLY)
-		
+		Local S1_TextPanelvbox:wxBoxSizer = New wxBoxSizer.Create(wxVERTICAL)
+		?WIN32						
+			Local S1_ExplainText1:wxTextCtrl = 	New wxTextCtrl.Create(S1_TextPanel , wxID_ANY , GetLocaleText("Tab1ExplainText_WIN") , - 1 , - 1 , - 1 , - 1 , wxTE_MULTILINE | wxTE_READONLY)
+		?MacOS
+			Local S1_ExplainText1:wxTextCtrl = 	New wxTextCtrl.Create(S1_TextPanel , wxID_ANY , GetLocaleText("Tab1ExplainText_MAC") , - 1 , - 1 , - 1 , - 1 , wxTE_MULTILINE | wxTE_READONLY)
+		?
 		
 		S1_TextPanel.setbackgroundcolour(New wxColour.createcolour(240,240,240))
 		S1_TextPanelvbox.Add(S1_ExplainText1 , 1 , wxEXPAND | wxALL , 4 )
@@ -442,7 +222,7 @@ Type A4SHelperFrameType Extends wxFrame
 		DriverPanel.SetSizer(DriverPanelvbox)
 
 		
-		Tabs.AddPage(DriverPanel,TAB1)
+		Tabs.AddPage(DriverPanel, GetLocaleText("Tab1") )
 		
 		
 		Local UploadPanel:wxPanel = New wxPanel.Create(Tabs , - 1)
@@ -450,7 +230,7 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		Local S2_TextPanel:wxPanel = New wxPanel.Create(UploadPanel , - 1)
 		Local S2_TextPanelvbox:wxBoxSizer = New wxBoxSizer.Create(wxVERTICAL)	
-		Local S2_ExplainText1:wxTextCtrl = 	New wxTextCtrl.Create(S2_TextPanel , wxID_ANY , EXPLAINTEXT2 , -1 , -1 , - 1 , - 1 , wxTE_MULTILINE| wxTE_READONLY )
+		Local S2_ExplainText1:wxTextCtrl = 	New wxTextCtrl.Create(S2_TextPanel , wxID_ANY , GetLocaleText("Tab2ExplainText") , - 1 , - 1 , - 1 , - 1 , wxTE_MULTILINE | wxTE_READONLY )
 		
 		'S2_ExplainText1.setbackgroundcolour(New wxColour.createcolour(255,255,240))
 		S2_TextPanel.setbackgroundcolour(New wxColour.createcolour(240,240,240))
@@ -459,17 +239,17 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		
 		Line4hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
-		Local SFLText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , LABEL6 , - 1 , - 1 , - 1 , - 1 , wxALIGN_LEFT)
+		Local SFLText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , GetLocaleText("ScratchFile") , - 1 , - 1 , - 1 , - 1 , wxALIGN_LEFT)
 		ScratchFileLocation = 	New wxTextCtrl.Create(UploadPanel , SFC , ScratchFile , - 1 , - 1 , - 1 , - 1)
-		Local BrowseScratchFileButton:wxButton = New wxButton.Create(UploadPanel , BSFB , LABEL7)	
+		Local BrowseScratchFileButton:wxButton = New wxButton.Create(UploadPanel , BSFB , GetLocaleText("Browse") )	
 		Line4hbox.Add(SFLText , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		Line4hbox.Add(ScratchFileLocation , 1 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP, 4)
 		Line4hbox.Add(BrowseScratchFileButton , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 	
 		Line1hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
-		Local PText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , LABEL1 , - 1 , - 1 , - 1 , - 1 , wxALIGN_LEFT)
+		Local PText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , GetLocaleText("Port") , - 1 , - 1 , - 1 , - 1 , wxALIGN_LEFT)
 		PortComboBox = New wxComboBox.Create(UploadPanel , PCB1 , "" , Null , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)
-		Local RefreshPortsButton:wxButton = New wxButton.Create(UploadPanel , RPB , LABEL2)	
+		Local RefreshPortsButton:wxButton = New wxButton.Create(UploadPanel , RPB , GetLocaleText("Refresh"))	
 
 		Line1hbox.Add(PText , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
 		Line1hbox.Add(PortComboBox , 1 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
@@ -477,7 +257,7 @@ Type A4SHelperFrameType Extends wxFrame
 		
 		?Win32
 		Line2hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)	
-		Local BText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , LABEL3 , - 1 , - 1 , - 1 , - 1 , wxALIGN_LEFT)
+		Local BText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , GetLocaleText("Board") , - 1 , - 1 , - 1 , - 1 , wxALIGN_LEFT)
 		BoardComboBox = New wxComboBox.Create(UploadPanel , BCB , BOARDCHOICES[BoardSelection] , BOARDCHOICES , - 1 , - 1 , - 1 , - 1 , wxCB_READONLY)		
 		
 		Line2hbox.Add(BText , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
@@ -494,9 +274,9 @@ Type A4SHelperFrameType Extends wxFrame
 				
 				
 		Line3hbox:wxBoxSizer = New wxBoxSizer.Create(wxHORIZONTAL)
-		Local SText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , LABEL4 , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
+		Local SText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , GetLocaleText("UploadStatus") , - 1 , - 1 , - 1 , - 1 , wxALIGN_LEFT)
 		StatusText:wxStaticText = New wxStaticText.Create(UploadPanel , wxID_ANY , "" , -1 , -1 , - 1 , - 1 , wxALIGN_LEFT)
-		StatusText.SetLabel(STATUS1)
+		StatusText.SetLabel(GetLocaleText("StatusNotStarted"))
 		StatusText.SetForegroundColour(New wxColour.createcolour(255,0,0))	
 		
 		Line3hbox.Add(SText , 0 , wxEXPAND | wxLEFT | wxRIGHT | wxTOP , 4 )
@@ -508,7 +288,7 @@ Type A4SHelperFrameType Extends wxFrame
 		
 
 
-		UploadButton = New wxButton.Create(UploadPanel , SSB , BUTTON1)
+		UploadButton = New wxButton.Create(UploadPanel , SSB , GetLocaleText("ButtonUpload"))
 		UploadButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))
 		Local UploadFont:wxFont = UploadButton.GetFont()
 		UploadFont.SetPointSize(12)
@@ -519,7 +299,7 @@ Type A4SHelperFrameType Extends wxFrame
 	
 		UploadPanel.SetSizer(UploadPanelvbox)
 		
-		Tabs.AddPage(UploadPanel,TAB2)
+		Tabs.AddPage(UploadPanel,GetLocaleText("Tab2"))
 			
 		
 		vbox.Add(Tabs , 1 , wxEXPAND | wxLEFT | wxRIGHT | wxBOTTOM , 0 )		
@@ -561,7 +341,7 @@ Type A4SHelperFrameType Extends wxFrame
 	
 	Method CodeConverterRun()
 		Local s:String
-		If FileType(ScratchFile) = 1 then
+		If FileType(ScratchFile) = 1 And FileType("Converter\CommandLineConverter.exe") = 1 then
 			If FileTime(ScratchFile) > ScratchFileModified Or FileType(GetUserAppDir() + Slash + "A4S-Embedded" + Slash + "ArduinoCode.ino") = 0 then
 				ScratchFileModified = FileTime(ScratchFile)
 
@@ -734,11 +514,11 @@ Type A4SHelperFrameType Extends wxFrame
 	
 	Function CloseFun(event:wxEvent)
 		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
-		If A4SHelperFrame.UploadButton.GetLabel() = BUTTON1 Or A4SHelperFrame.UploadButton.GetLabel() = BUTTON2 Then
+		If A4SHelperFrame.UploadButton.GetLabel() = GetLocaleText("ButtonUpload") Or A4SHelperFrame.UploadButton.GetLabel() = GetLocaleText("ButtonFinished") Then
 			
-		Else 
+		Else
 			Local MessageBox:wxMessageDialog 
-			MessageBox = New wxMessageDialog.Create(Null, ERROR2 , "Question", wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION)
+			MessageBox = New wxMessageDialog.Create(Null, GetLocaleText("ErrorClose") , "Question", wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION)
 			If MessageBox.ShowModal() = wxID_YES Then
 				
 			Else
@@ -756,7 +536,7 @@ Type A4SHelperFrameType Extends wxFrame
 
 		Local A4SHelperFrame:A4SHelperFrameType = A4SHelperFrameType(event.parent)
 			
-		If A4SHelperFrame.UploadButton.GetLabel() = BUTTON1 Or A4SHelperFrame.UploadButton.GetLabel() = BUTTON2 then
+		If A4SHelperFrame.UploadButton.GetLabel() = GetLocaleText("ButtonUpload") Or A4SHelperFrame.UploadButton.GetLabel() = GetLocaleText("ButtonFinished") then
 			Local Port:String = A4SHelperFrame.PortComboBox.GetValue()
 			?Win32
 			Local Board:Int = Int(A4SHelperFrame.BoardComboBox.GetValue())
@@ -765,8 +545,8 @@ Type A4SHelperFrameType Extends wxFrame
 			?
 			
 			Local MessageBox:wxMessageDialog
-			If Port = "" Or Port = " " Then
-				MessageBox = New wxMessageDialog.Create(Null , ERROR1 , ERROR6 , wxOK | wxICON_ERROR)
+			If Port = "" Or Port = " " then
+				MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorPortBoard") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 				MessageBox.ShowModal()
 				MessageBox.Free()	
 				Return
@@ -774,9 +554,9 @@ Type A4SHelperFrameType Extends wxFrame
 			A4SHelperFrame.CodeConverterRun()
 			A4SHelperFrame.ProcessUpload(ExtractPort(Port), Board)
 		Else
-			MessageBox = New wxMessageDialog.Create(Null, ERROR2 , "Question", wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION)
+			MessageBox = New wxMessageDialog.Create(Null, GetLocaleText("ErrorClose") , "Question", wxYES_NO | wxNO_DEFAULT | wxICON_QUESTION)
 			If MessageBox.ShowModal() = wxID_YES Then
-				A4SHelperFrame.StatusText.SetLabel(STATUS3)
+				A4SHelperFrame.StatusText.SetLabel(GetLocaleText("StatusStoppedUser"))
 				A4SHelperFrame.A4SHelperLog.AddText("Process Terminated By User~n")	
 				TerminateProcess(A4SHelperFrame.UploadProcess)
 			EndIf
@@ -789,21 +569,21 @@ Type A4SHelperFrameType Extends wxFrame
 
 		Local MessageBox:wxMessageDialog
 		A4SHelperLog.AddText("===============Uploading===============~n")	
-		UploadButton.SetLabel(BUTTON3)
+		UploadButton.SetLabel(GetLocaleText("ButtonStop"))
 		UploadButton.setbackgroundcolour(New wxColour.createcolour(255,100,100))
 		A4SHelperLog.AddText("Starting Upload on "+Port+" ~n")
 		StatusText.SetLabel("Started")
 		StatusText.SetForegroundColour(New wxColour.createcolour(255,140,0))	
 
 		If FileType(GetUserAppDir() + Slash + "A4S-Embedded" + Slash + "ArduinoCode.ino") = 0 then
-			MessageBox = New wxMessageDialog.Create(Null , ERROR7 , ERROR6 , wxOK | wxICON_ERROR)
+			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorGenArduinoCode") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 			MessageBox.ShowModal()
 			MessageBox.Free()
 			
-			UploadButton.SetLabel(BUTTON1)
+			UploadButton.SetLabel(GetLocaleText("ButtonUpload"))
 			UploadButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))
 		
-			StatusText.SetLabel(STATUS4)
+			StatusText.SetLabel(GetLocaleText("StatusError"))
 			StatusText.SetForegroundColour(New wxColour.createcolour(255,0,0))
 			A4SHelperLog.AddText("Failed to generate Arduino Source")						Return
 		EndIf 
@@ -817,7 +597,7 @@ Type A4SHelperFrameType Extends wxFrame
 		If FileType("/Applications/Arduino.app/Contents/MacOS/JavaApplicationStub")=1 Then 
 			Self.UploadProcess = CreateProcess("/Applications/Arduino.app/Contents/MacOS/JavaApplicationStub " + Chr(34) + GetUserAppDir() + Slash + "A4S-Embedded" + Slash + "ArduinoCode.ino" + Chr(34), 1)
 		Else
-			MessageBox = New wxMessageDialog.Create(Null , ERROR8 , ERROR6 , wxOK | wxICON_ERROR)
+			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorInstallIDE_MAC") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 			MessageBox.ShowModal()
 			MessageBox.Free()	
 		EndIf 
@@ -827,13 +607,13 @@ Type A4SHelperFrameType Extends wxFrame
 		Local s:String
 		
 		If UploadProcess = Null Then 
-			MessageBox = New wxMessageDialog.Create(Null , ERROR5 , ERROR6 , wxOK | wxICON_ERROR)
+			MessageBox = New wxMessageDialog.Create(Null , GetLocaleText("ErrorArduinoUploader") , GetLocaleText("ErrorTitle") , wxOK | wxICON_ERROR)
 			MessageBox.ShowModal()
 			MessageBox.Free()	
-			UploadButton.SetLabel(BUTTON1)
+			UploadButton.SetLabel(GetLocaleText("ButtonUpload"))
 			UploadButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))
 		
-			StatusText.SetLabel(STATUS4)
+			StatusText.SetLabel(GetLocaleText("StatusError"))
 			StatusText.SetForegroundColour(New wxColour.createcolour(255,0,0))
 			?Win32
 			A4SHelperLog.AddText("ArduinoUploader could not start. This probabily means ArduinoUploader.exe is missing or corrupt. Please reinstall ArduinoUploader.~n")
@@ -857,19 +637,19 @@ Type A4SHelperFrameType Extends wxFrame
 		Forever
 
 		?Win32
-		If StatusText.GetLabel()=STATUS5 Or StatusText.GetLabel()=STATUS3 Then
+		If StatusText.GetLabel()=GetLocaleText("StatusFinished") Or StatusText.GetLabel()=GetLocaleText("StatusStoppedUser") Then
 		
 		Else
-			StatusText.SetLabel(STATUS4)
+			StatusText.SetLabel(GetLocaleText("StatusError"))
 			StatusText.SetForegroundColour(New wxColour.createcolour(255,0,0))
 		EndIf 
 		?MacOS
 		'Mac version just loads up Arduino Environment, so always show finished correctly status
-		StatusText.SetLabel(STATUS5)
+		StatusText.SetLabel(GetLocaleText("StatusFinished"))
 		StatusText.SetForegroundColour(New wxColour.createcolour(0,120,0))		
 		?
 		
-		UploadButton.SetLabel(BUTTON2)
+		UploadButton.SetLabel(GetLocaleText("ButtonFinished"))
 		UploadButton.setbackgroundcolour(New wxColour.createcolour(70,255,140))
 		TerminateProcess(UploadProcess)
 		'ChangeDir("..")
@@ -893,32 +673,32 @@ Type A4SHelperFrameType Extends wxFrame
 				Else
 					Totals = Totals + s
 					If Instr(Totals, "avrdude.exe done.  Thank you.") Then
-						If Status.GetLabel()=STATUS4 Then
+						If Status.GetLabel()=GetLocaleText("StatusError") Then
 						
 						Else
-							Status.SetLabel(STATUS5)
+							Status.SetLabel(GetLocaleText("StatusFinished"))
 							Status.SetForegroundColour(New wxColour.createcolour(0,120,0))							
 						EndIf 
 					ElseIf Instr(Totals,"not in sync") Then
-						If Status.GetLabel()=STATUS3 Then 
+						If Status.GetLabel()=GetLocaleText("StatusStoppedUser") Then 
 						
 						Else
 							Console.AddText("Arduino out of sync!.~n")
-							Status.SetLabel(STATUS4)
+							Status.SetLabel(GetLocaleText("StatusError"))
 							Status.SetForegroundColour(New wxColour.createcolour(255,0,0))							
 						EndIf 
 					ElseIf Instr(Totals,"Writing") Then 
-						If Status.GetLabel()=STATUS3 Then 
+						If Status.GetLabel()=GetLocaleText("StatusStoppedUser") Then 
 						
 						Else
-							Status.SetLabel(STATUS6)
+							Status.SetLabel(GetLocaleText("StatusUploading"))
 							Status.SetForegroundColour(New wxColour.createcolour(255,140,0))						
 						EndIf 
 					ElseIf Instr(Totals,"Compiliation") Then
-						If Status.GetLabel()=STATUS3 Then 
+						If Status.GetLabel()=GetLocaleText("StatusStoppedUser") Then 
 						
 						Else					
-							Status.SetLabel(STATUS7)
+							Status.SetLabel(GetLocaleText("StatusCompiling"))
 							Status.SetForegroundColour(New wxColour.createcolour(255,140,0))	
 						EndIf
 					EndIf 
