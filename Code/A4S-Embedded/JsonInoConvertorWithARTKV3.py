@@ -64,23 +64,17 @@ class JsonInoConvertor(object):
         self.sleep_var = False
 
         self.instructions = {
-            'A4S (Arduino For Scratch).digitalWrite':
-            self.digitalWriteConvertion,
+            'A4S (Arduino For Scratch).digitalWrite': self.digitalWriteConvertion,
             'doIf': self.doIfConvertion,
             'doIfElse': self.doIfElseConvertion,
             'readVariable': self.doReadVariable,
             'setVar:to:': self.SetVar,
             'changeVar:by:': self.ChangeVar,
-            'A4S (Arduino For Scratch).analogRead':
-            self.AnalogReadingConvertion,
-            'A4S (Arduino For Scratch).analogWrite':
-            self.AnalogWriteConvertion,
-            'A4S (Arduino For Scratch).servoWrite':
-            self.ServoWriteConvertion,
-            'A4S (Arduino For Scratch).tone':
-            self.toneConvertion,
-            'A4S (Arduino For Scratch).notone':
-            self.notoneConvertion,
+            'A4S (Arduino For Scratch).analogRead': self.AnalogReadingConvertion,
+            'A4S (Arduino For Scratch).analogWrite': self.AnalogWriteConvertion,
+            'A4S (Arduino For Scratch).servoWrite': self.ServoWriteConvertion,
+            'A4S (Arduino For Scratch).tone': self.toneConvertion,
+            'A4S (Arduino For Scratch).notone': self.notoneConvertion,
             '*': self.OpertationConvertion,
             '+': self.OpertationConvertion,
             '-': self.OpertationConvertion,
@@ -494,6 +488,18 @@ class JsonInoConvertor(object):
 
         self.loopFunctionStr += "HIGH"
 
+	def doFileConversion(self,fileINName, fileOUTName):
+		#Scratch Files are a standard zip file. We extract the project.json file from this zip
+		fileOUT = open(fileOUTName, "w")
+        archive = zipfile.ZipFile(fileINName, 'r')
+        json_data = archive.read('project.json')
+		
+		#Parse JSON data
+		data = json.loads(json_data.decode('utf-8'))
+		
+		
+		
+		
     def convertSpriteScripts(self, fileINName, fileOUTName):
 
         fileOUT = open(fileOUTName, "w")
